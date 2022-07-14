@@ -37,11 +37,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_234633) do
 
   create_table "filings", force: :cascade do |t|
     t.integer "organization_id", null: false
+    t.datetime "return_timestamp", null: false
     t.string "tax_period", null: false
     t.string "xml_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organization_id", "tax_period"], name: "index_filings_on_organization_id_and_tax_period", unique: true
+    t.index ["organization_id", "tax_period"], name: "index_filings_on_organization_id_and_tax_period"
     t.index ["organization_id"], name: "index_filings_on_organization_id"
   end
 

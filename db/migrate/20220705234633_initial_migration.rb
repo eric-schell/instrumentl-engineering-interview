@@ -22,12 +22,13 @@ class InitialMigration < ActiveRecord::Migration[7.0]
     create_table :filings do |t|
       t.references :organization, null: false
 
+      t.datetime :return_timestamp, null: false
       t.string :tax_period, null: false
       t.string :xml_url, null: false, unique: true
 
       t.timestamps
     end
-    add_index :filings, [:organization_id, :tax_period], unique: true
+    add_index :filings, [:organization_id, :tax_period]
 
     create_table :awards do |t|
       t.references :filing, null: false
