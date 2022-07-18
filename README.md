@@ -52,6 +52,8 @@
 
 Every year, US Nonprofit organizations submit tax returns to the IRS. The returns are converted into XML and made available by the IRS. These tax returns contain information about the nonprofit’s giving and/or receiving for the tax period. For this coding challenge, we will focus on the nonprofit’s attributes and the awards that they gave or received in a particular tax year.
 
+These Organizations may file their taxes multiple times in a year (also known as filing amended returns). Only one return is considered valid, however. That return is the one with the most recent ReturnTimestamp (and/or the one with the Amended Return Indicator).
+
 ## Key Definitions
 
 - Filers are nonprofit organizations that submit tax return data to the IRS.
@@ -89,10 +91,11 @@ Example: “The filer’s 2015 filing declares that they gave 18 awards to 12 di
 - http://s3.amazonaws.com/irs-form-990/201522139349100402_public.xml
 - http://s3.amazonaws.com/irs-form-990/201831359349101003_public.xml
 
-## Paths and Keys in XMLs for Related Data\*
+## Paths and Keys in XMLs for Related Data
 
 - Filing Path: `Return/ReturnHeader`
-  - Tax Period: `{TaxYear,TaxYr}`
+  - Return Timestamp: `{ReturnTs}`
+  - Tax Period: `{TaxPeriodEndDt,TaxPeriodEndDate}`
 - Filer Path: `Return/ReturnHeader/Filer`
   - EIN: `EIN`
   - Name: `{Name,BusinessName}/{BusinessNameLine1,BusinessNameLine1Txt}`
@@ -102,7 +105,7 @@ Example: “The filer’s 2015 filing declares that they gave 18 awards to 12 di
   - State: `{State,StateAbbreviationCd}`
   - Zip: `{ZIPCode,ZIPCd}`
 - Award List Path: `Return/ReturnData/IRS990ScheduleI/RecipientTable`
-
+  - Amended Return Indicator: `{AmendedReturnInd}`
   - EIN: `{EINOfRecipient,RecipientEIN}`
   - Recipient Name: `{RecipientNameBusiness,RecipientBusinessName}/{BusinessNameLine1,BusinessNameLine1Txt}`
   - Recipient Address: `{USAddress,AddressUS}`
@@ -122,7 +125,7 @@ The only requirements for the frontend are that you leverage your new API in Jav
 
 ## How to deliver your code
 
-Please fork this repo into a private Github repository and share access with the following Github accounts.
+Please fork this repo into a Github repository and share access with the following Github accounts.
 
 [@eyupatis](https://github.com/eyupatis)
 [@gsinkin-instrumentl](https://github.com/gsinkin-instrumentl)

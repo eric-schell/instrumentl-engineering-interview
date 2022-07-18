@@ -10,7 +10,6 @@ class InitialMigration < ActiveRecord::Migration[7.0]
 
     create_table :addresses do |t|
       t.references :organization, null: false
-      t.references :award, null: true
 
       t.string :address
       t.string :address2
@@ -18,6 +17,11 @@ class InitialMigration < ActiveRecord::Migration[7.0]
       t.string :state
       t.string :zip_code
       t.string :country
+    end
+
+    create_table :award_addresses do |t|
+      t.references :award, null: false, unique: true
+      t.references :address, null: false
     end
 
     create_table :filings do |t|

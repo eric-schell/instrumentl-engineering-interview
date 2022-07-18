@@ -13,15 +13,20 @@
 ActiveRecord::Schema[7.0].define(version: 2022_07_05_234633) do
   create_table "addresses", force: :cascade do |t|
     t.integer "organization_id", null: false
-    t.integer "award_id"
     t.string "address"
     t.string "address2"
     t.string "city"
     t.string "state"
     t.string "zip_code"
     t.string "country"
-    t.index ["award_id"], name: "index_addresses_on_award_id"
     t.index ["organization_id"], name: "index_addresses_on_organization_id"
+  end
+
+  create_table "award_addresses", force: :cascade do |t|
+    t.integer "award_id", null: false
+    t.integer "address_id", null: false
+    t.index ["address_id"], name: "index_award_addresses_on_address_id"
+    t.index ["award_id"], name: "index_award_addresses_on_award_id"
   end
 
   create_table "awards", force: :cascade do |t|

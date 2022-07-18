@@ -17,12 +17,14 @@ filing = Filing.create!(
 
 receiver = Organization.create!(name: "RECEIVER NAME")
 award = Award.create!(filing: filing, receiver: receiver, cash_amount: 1234567, purpose: "For Fun")
-Address.create!(
-  organization: receiver,
+AwardAddress.create!(
   award: award,
-  address: "123 FIRST STREET",
-  city: "OAKLAND",
-  state: "CA",
-  country: "US",
-  zip_code: "94611-1234"
+  address: Address.create!(
+    organization: receiver,
+    address: "123 FIRST STREET",
+    city: "OAKLAND",
+    state: "CA",
+    country: "US",
+    zip_code: "94611-1234"
+  )
 )
