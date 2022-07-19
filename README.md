@@ -119,7 +119,7 @@ Example: “The filer’s 2015 filing declares that they gave 18 awards to 12 di
 
 ## Frontend Requirements
 
-Go ahead and show off a little bit! Build something great that utilizes the API. Build a UI that enables the user to explore the historical awards of a filer. What information is relevant? How should they navigate the data? Obviously, you don’t have infinite time, so feel free to stub out functionality or leave comments for things you didn’t get to finish. We understand!
+Go ahead and show off a little bit! Build something great that utilizes the API. Consider building a UI that enables a customer to explore the historical giving of a filer. What information is relevant? How should someone navigate the data? Obviously, you don’t have infinite time, so feel free to stub out functionality or leave comments for things you didn’t get to finish. We understand!
 
 The only requirements for the frontend are that you leverage your new API in Javascript (please, no Backbone.js).
 
