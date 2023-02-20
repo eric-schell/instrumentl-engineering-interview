@@ -65,3 +65,9 @@ yarn-debug.log*
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+
+# mac files
+*.DS_Store
+
+# vim swap files
+*.swp
