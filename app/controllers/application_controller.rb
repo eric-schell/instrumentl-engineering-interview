@@ -3,4 +3,8 @@ class ApplicationController < ActionController::Base
     return if request.format == :json
     head :not_acceptable
   end
+
+  def app(status: request.path == '/' ? :ok : :not_found)
+    render(status: status, template: 'application/app')
+  end
 end

@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  root "organizations#index"
+  root to: 'application#app'
 
   namespace :api, constraints: { format: "json" } do
     resources :organizations, only: [:index, :show] do
@@ -12,4 +11,6 @@ Rails.application.routes.draw do
       resources :addresses, only: [:index, :show]
     end
   end
+
+  get '*path', to: 'application#app'
 end
