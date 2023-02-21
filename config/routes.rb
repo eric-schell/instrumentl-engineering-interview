@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       end
       resources :addresses, only: [:index, :show]
     end
+    resources :receivers, only: [:show] do
+      resources :awards, only: [:index]
+    end
   end
 
   get '*path', to: 'application#app'

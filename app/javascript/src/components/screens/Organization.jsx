@@ -17,22 +17,69 @@ Datum.propTypes = {
 }
 
 const Organization = () => {
+  const [loaded, setLoaded] = useState(false)
   const { id } = useParams()
   const organizationPath = `/api/organizations/${id}`
-  const [{ name, ein }, setOrganization] = useState({})
-  const [filings, setFilings] = useState([])
+  const [{ name, ein, filings }, setOrganization] = useState({})
+  const [showFilings, setShowFilings] = useState()
+  const [receivedAwards, setReceivedAwards] = useState([])
 
   const load = async () => {
-    const organizationResponse = await axios.get(`${organizationPath}.json`)
-    setOrganization(organizationResponse.data)
+    const organizationResponse = await axios.get(`/api/organizations/${id}.json`)
+    const organization = organizationResponse.data
+    setOrganization(organization)
 
-    const filingsResponse = await axios.get(`${organizationPath}/filings.json`)
-    setFilings(filingsResponse.data.filings)
+    setShowFilings(organization.filings.length > 0)
+    if (!showFilings) {
+      const receivedAwardsResponse = await axios.get(`/api/receivers/${id}/awards.json`)
+      setReceivedAwards(receivedAwardsResponse.data.awards)
+    }
+
+    setLoaded(true)
   }
 
   useEffect(() => {
     load()
   }, [])
+
+  const FilingsTable = () => (
+    <>
+      <div className='pb-4'>
+        <b>Filings: </b>
+      </div>
+      <Table
+        data={filings}
+        columns={[{
+          title: 'Tax Period',
+          value: datum => datum.tax_period
+        }, {
+          title: 'Awards Count',
+          value: datum => datum.awards_count
+        }, {
+          title: 'Total Amount Given',
+          value: datum => datum.total_amount_given
+        }]}
+      />
+    </>
+  )
+
+  const ReceivedAwardsTable = () => (
+    <>
+      <div className='pb-4'>
+        <b>Received Awards: </b>
+      </div>
+      <Table
+        data={receivedAwards}
+        columns={[{
+          title: 'Purpose',
+          value: datum => datum.purpose
+        }, {
+          title: 'Cash Amount',
+          value: datum => datum.cash_amount
+        }]}
+      />
+    </>
+  )
 
   return (
     <div className='p-4 flex'>
@@ -41,16 +88,7 @@ const Organization = () => {
         <Datum label='EIN' value={ein} />
       </div>
       <div className='flex-grow'>
-        <Table
-          data={filings}
-          columns={[{
-            title: 'id',
-            value: datum => datum.id
-          }, {
-            title: 'tax_period',
-            value: datum => datum.tax_period
-          }]}
-        />
+        {loaded && (showFilings ? <FilingsTable /> : <ReceivedAwardsTable />)}
       </div>
     </div>
   )

@@ -15,6 +15,11 @@ module Api
         @awards = @awards.where(filing_id: filing_id)
       end
 
+      receiver_id = params[:receiver_id]
+      if receiver_id.present?
+        @awards = @awards.where("receiver_id": receiver_id)
+      end
+
       respond_to do |format|
         format.json {
           render json: {
