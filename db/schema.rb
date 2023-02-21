@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_05_234633) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_21_202945) do
   create_table "addresses", force: :cascade do |t|
     t.integer "organization_id", null: false
     t.string "address"
@@ -58,6 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_234633) do
     t.string "ein"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "filings_count"
+    t.integer "received_awards_count"
     t.index ["ein"], name: "index_organizations_on_ein", unique: true
   end
 

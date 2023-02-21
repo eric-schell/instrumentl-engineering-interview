@@ -10,6 +10,8 @@ module Api
           "%#{org_params[:search]}%"
         )
       end
+      @organizations = @organizations.with_filings if org_params[:with_filings].present? && org_params[:with_filings] != 'false'
+      @organizations = @organizations.with_received_awards if org_params[:with_received_awards].present? && org_params[:with_received_awards] != 'false'
 
       respond_to do |format|
         format.json {
@@ -40,7 +42,7 @@ module Api
     end
 
     def org_params
-      params.permit(:search)
+      params.permit(:search, :with_filings, :with_received_awards)
     end
   end
 end
