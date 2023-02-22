@@ -10,6 +10,10 @@ Rails.application.routes.draw do
       end
       resources :addresses, only: [:index, :show]
     end
+    resources :filings, only: [:index, :show] do
+      resources :awards, only: [:index, :show]
+    end
+    resources :awards, only: [:index, :show]
     resources :receivers, only: [:show] do
       resources :awards, only: [:index]
     end

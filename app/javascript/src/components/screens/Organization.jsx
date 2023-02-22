@@ -50,6 +50,9 @@ const Organization = () => {
       <Table
         data={filings}
         columns={[{
+          title: 'ID',
+          value: datum => <Link to={`/filings/${datum.id}`}>{datum.id}</Link>
+        }, {
           title: 'Tax Period',
           value: datum => datum.tax_period
         }, {
@@ -71,6 +74,9 @@ const Organization = () => {
       <Table
         data={receivedAwards}
         columns={[{
+          title: 'ID',
+          value: datum => <Link to={`/awards/${datum.id}`}>{datum.id}</Link>
+        }, {
           title: 'Purpose',
           value: datum => datum.purpose
         }, {
